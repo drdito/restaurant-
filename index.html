@@ -16,6 +16,19 @@
         <p><a class="btn btn-primary btn-lg" id="viewTable" href="tables" role="button"><span class="glyphicon glyphicon-list-alt"></span> View Tables</a></p>
         <p><a class="btn btn-danger btn-lg" href="makeReservation" role="button"><span class="glyphicon glyphicon-credit-card"></span> Make Reservation</a></p>
     </div>
-    
+    <script>
+        $("#viewTable").on("click", function() {
+          $.get("/api/", function(data) {
+            console.log(data);
+            if (data) {
+              $("#reserved").append("<div class='card'><h4 class='card-header'>"data.name"</h4></div>");
+              $("#wait").append("<div class='card'><h4 class='card-header'>"data.name"</h4></div>");
+            }
+            else {
+              $("#reserved").text("No Current Reservations");
+            }
+          });
+        });
+    </script>
 </body>
 </html>
