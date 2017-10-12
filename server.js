@@ -69,3 +69,27 @@ var reservations = [
     forcePoints: 1350
   }
 ];
+
+$("#viewTable").on("click", function() {
+  $.get("/api/", function(data) {
+    console.log(data);
+    if (data) {
+      $("#reserved").append("<div class='card'><h4 class='card-header'>"data.name"</h4></div>");
+      $("#wait").append("<div class='card'><h4 class='card-header'>"data.name"</h4></div>");
+    }
+    else {
+      $("#reserved").text("No Current Reservations");
+    }
+  });
+});
+
+app.post("/api/new", function(req, res) {
+  // req.body hosts is equal to the JSON post sent from the user
+  // This works because of our body-parser middleware
+  var newReservation = req.body;
+  newReservation.routeName = newReservation.name.replace(/\s+/g, "").toLowerCase();
+
+  characters.push(newcharacter);
+
+  res.json(newcharacter);
+});
